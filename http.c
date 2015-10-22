@@ -228,31 +228,42 @@ void http_decode( char *s )
 	strcpy( s, t );
 }
 
-void http_encode( char *s )
+//TODO: this function should take two arguments.
+// second argument should be the size of source buffer.
+void http_encode(char *pSource)
 {
-	char t[MAX_STRING];
-	int i, j;
-	
-	for( i = j = 0; s[i]; i ++, j ++ )
+	if (NULL != pSource)
 	{
-		/* Fix buffer overflow */
-		if (j >= MAX_STRING - 1) {
-			break;
-		}
+		char encode[MAX_STRING];
+		int sourcePointer = 0;
+		int encodePointer = 0;
 		
-		t[j] = s[i];
-		if( s[i] == ' ' )
+		for (;
+			pSource[sourcePointer] != '\0' && MAX_STRING > encodePointer;
+			sourcePointer++)
 		{
-			/* Fix buffer overflow */
-			if (j >= MAX_STRING - 3) {
-				break;
+			if (pSource[sourcePointer] == ' ')
+			{
+				if (MAX_STRING <= encodePointer + 3)
+				{
+					break;
+				}
+
+				encode[encodePointer++] = '%';
+				encode[encodePointer++] = '2';
+				encode[encodePointer++] = '0';
 			}
-			
-			strcpy( t + j, "%20" );
-			j += 2;
+			else
+			{
+				encode[encodePointer++] = pSource[sourcePointer];
+			}
 		}
+		if (encodePointer < MAX_STRING)
+		{
+			encode[encodePointer] = '\0';					
+		}
+
+		// Risky pSource may not have enough buffer!
+		strcpy(pSource, encode);		
 	}
-	t[j] = 0;
-	
-	strcpy( s, t );
 }
