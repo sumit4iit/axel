@@ -25,11 +25,11 @@
 */
 
 #define SC_FAILED(error) 	\
-	(error == 0) false : true;
+	(error == 0) false : true
 
 enum STATUSCODE
 {
-	AXEL_ERROR_SUCCESS = 0,
+	AXEL_SUCCESS = 0,
 	AXEL_ERROR_FAILED,
 	AXEL_ERROR_INVALID_ARGUMENT,
 	AXEL_ERROR_NULL_POINTER_DEREF
