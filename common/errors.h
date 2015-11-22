@@ -24,7 +24,7 @@
   Suite 330, Boston, MA  02111-1307  USA
 */
 
-#define SC_FAILED(error) 	\
+#define SC_FAILED(error)	\
 	(error == 0) false : true
 
 enum STATUSCODE
@@ -34,3 +34,4 @@ enum STATUSCODE
 	AXEL_ERROR_INVALID_ARGUMENT,
 	AXEL_ERROR_NULL_POINTER_DEREF
 };
+
